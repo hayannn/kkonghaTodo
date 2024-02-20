@@ -8,4 +8,5 @@ public interface TodoService {
     TodoEntity getTodoById(Long id);
     TodoEntity saveOrUpdateTodo(TodoEntity todo);
     void deleteTodoById(Long id);
+    void toggleCompletion(Long id);
 }

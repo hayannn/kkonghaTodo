@@ -8,37 +8,41 @@
           crossorigin="anonymous">
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Todo List</h2>
-        <div th:if="${param.success}">
-            <p style="color: green;">New todo added successfully!</p>
-        </div>
-        <a th:href="@{/todos/add}">+</a>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">투두 제목</th>
-                    <th>기한</th>
-                    <th>완료여부</th>
-                    <th>메모</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="todo : ${todos}">
-                    <td th:text="${todo.title}"></td>
-                    <td th:text="${#dates.format(todo.dueDate, 'yyyy-MM-dd')}"></td>
-                    <td th:text="${todo.completed} ? 'Yes' : 'No'"></td>
-                    <td th:text="${todo.memo}"></td>
-                    <td>
-                        <a th:href="@{'/todos/edit/' + ${todo.id}}">수정</a>
-                        <a th:href="@{'/todos/delete/' + ${todo.id}}">삭제</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-    </div>
+<div class="container mt-5">
+    <h2>Todo List</h2>
+    <a th:href="@{/todos/add}">+</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">투두 제목</th>
+            <th>기한</th>
+            <th>완료여부</th>
+            <th>메모</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo : ${todos}">
+            <td th:text="${todo.title}"></td>
+            <td th:text="${#dates.format(todo.dueDate, 'yyyy-MM-dd')}"></td>
+            <td>
+                <input type="checkbox" th:checked="${todo.completed}" th:onclick="'javascript:toggleCompletion(' + ${todo.id} + ');'">
+            </td>
+            <td th:text="${todo.memo}"></td>
+            <td>
+                <a th:href="@{'/todos/edit/' + ${todo.id}}">수정</a>
+                <a href="#" th:onclick="'javascript:confirmDelete(' + ${todo.id} + ');'">삭제</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-
+<!-- JavaScript function for toggling completion -->
+<script th:inline="javascript">
+    function toggleCompletion(id) {
+        window.location.href = '/todos/toggle-completion/' + id;
+    }
+</script>
 </body>
 </html>

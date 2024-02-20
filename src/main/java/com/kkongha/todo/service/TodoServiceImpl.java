@@ -32,4 +32,16 @@ public class TodoServiceImpl implements TodoService {
     public void deleteTodoById(Long id) {
         todoRepository.deleteById(id);
     }
+
+    @Override
+    public void toggleCompletion(Long id) {
+        TodoEntity todo = todoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
+
+        // 완료 상태를 토글
+        todo.setCompleted(!todo.isCompleted());
+
+        // 업데이트된 투두 저장
+        todoRepository.save(todo);
+    }
 }

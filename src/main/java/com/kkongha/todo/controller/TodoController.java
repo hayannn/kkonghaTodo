@@ -47,6 +47,12 @@ public class TodoController {
         return "redirect:/todos";
     }
 
+    @GetMapping("/toggle-completion/{id}")
+    public String toggleCompletion(@PathVariable Long id) {
+        todoService.toggleCompletion(id);
+        return "redirect:/todos";
+    }
+
     @GetMapping("/edit/{id}")
     public String showEditTodoForm(@PathVariable Long id, Model model) {
         TodoEntity todo = todoService.getTodoById(id);
@@ -55,7 +61,11 @@ public class TodoController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editTodo(@PathVariable Long id, @ModelAttribute TodoEntity updatedTodo) {
+    public String editTodo(@PathVariable Long id, @ModelAttribute @Valid TodoEntity updatedTodo, BindingResult result) {
+        if (result.hasErrors()) {
+            return "edit-todo";
+        }
+
         updatedTodo.setId(id);
         todoService.saveOrUpdateTodo(updatedTodo);
         return "redirect:/todos";
@@ -66,4 +76,5 @@ public class TodoController {
         todoService.deleteTodoById(id);
         return "redirect:/todos";
     }
+
 }

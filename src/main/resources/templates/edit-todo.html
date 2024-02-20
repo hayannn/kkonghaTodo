@@ -8,7 +8,7 @@
 <h2>Edit Todo</h2>
 <form th:action="@{'/todos/edit/' + ${todo.id}}" th:object="${todo}" method="post">
   <label>Title: <input type="text" th:field="*{title}" required></label><br>
-  <label>Due Date: <input type="date" th:field="*{dueDate}" required></label><br>
+  <label>Due Date: <input type="date" th:field="*{dueDateStr}" required></label><br>
   <label>Memo: <textarea th:field="*{memo}"></textarea></label><br>
   <button type="submit">Update Todo</button>
 </form>
