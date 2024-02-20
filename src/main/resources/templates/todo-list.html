@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+</head>
+<body>
+<h2>Todo List</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th>Completed</th>
+        <th>Memo</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="todo : ${todos}">
+        <td th:text="${todo.title}"></td>
+        <td th:text="${#dates.format(todo.dueDate, 'yyyy-MM-dd')}"></td>
+        <td th:text="${todo.completed} ? 'Yes' : 'No'"></td>
+        <td th:text="${todo.memo}"></td>
+        <td>
+            <a th:href="@{'/todos/edit/' + ${todo.id}}">Edit</a>
+            <a th:href="@{'/todos/delete/' + ${todo.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
