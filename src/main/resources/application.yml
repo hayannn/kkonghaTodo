@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/todo?serverTimezone=Asia/Seoul
+    username: root
+    password: 2470
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        database-platform: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+        format_sql: true
+      org.hibernate.type.descriptor.sql: trace
+  logging:
+    level:
+      me.bi: DEBUG
