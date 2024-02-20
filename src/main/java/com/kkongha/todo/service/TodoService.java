@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface TodoService {
     List<TodoEntity> getAllTodos();
+    List<TodoEntity> getTodayTodos();
     TodoEntity getTodoById(Long id);
     TodoEntity saveOrUpdateTodo(TodoEntity todo);
     void deleteTodoById(Long id);

@@ -77,4 +77,13 @@ public class TodoController {
         return "redirect:/todos";
     }
 
+
+    @GetMapping("/today")
+    public String getTodayTodos(Model model) {
+        List<TodoEntity> todayTodos = todoService.getTodayTodos();
+        model.addAttribute("todos", todayTodos);
+        return "todo-list";
+    }
+
+
 }

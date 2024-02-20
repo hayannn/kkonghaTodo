@@ -5,6 +5,8 @@ import com.kkongha.todo.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,5 +45,20 @@ public class TodoServiceImpl implements TodoService {
 
         // 업데이트된 투두 저장
         todoRepository.save(todo);
+    }
+
+    @Override
+    public List<TodoEntity> getTodayTodos() {
+        Date today = new Date();
+
+        // 날짜 부분을 0시 0분 0초로 설정
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(today);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        today = calendar.getTime();
+
+        return todoRepository.findByDueDate(today);
     }
 }
