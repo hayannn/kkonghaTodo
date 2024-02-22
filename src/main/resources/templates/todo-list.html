@@ -22,20 +22,26 @@
             <div th:each="todo : ${todos}" class="col-md-4 col-sm-6 mb-3">
                 <div class="col-12 p-2">
                     <div class="card" style="width: 18rem">
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${todo.title}"></h5>
-                            <p class="card-text">
-                                <input type="checkbox" th:checked="${todo.completed}" th:onclick="'javascript:toggleCompletion(' + ${todo.id} + ');'"><br>
-                                <strong>기한</strong> <span th:text="${#dates.format(todo.dueDate, 'yyyy-MM-dd')}"></span><br>
-                                <strong>메모</strong> <span th:text="${todo.memo}"></span>
-                            </p>
-                            <div class="col">
-                                <a th:href="@{'/todos/edit/' + ${todo.id}}" class="btn btn-primary">수정</a>
-                                <a href="#" th:onclick="'javascript:confirmDelete(' + ${todo.id} + ');'" class="btn btn-danger">삭제</a>
-                            </div>
+                        <div class="card-header">
+                            <span th:text="${#dates.format(todo.dueDate, 'yyyy-MM-dd')}"></span>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <div class="card-body">
+                                <li class="list-group-item">
+                                    <h5 class="card-title" th:text="${todo.title}"></h5>
+                                        <p class="card-text">
+                                            <input type="checkbox" th:checked="${todo.completed}" th:onclick="'javascript:toggleCompletion(' + ${todo.id} + ');'"><br>
+                                            <strong>메모</strong> <span th:text="${todo.memo}"></span>
+                                        </p>
+                                        <div class="col">
+                                            <a th:href="@{'/todos/edit/' + ${todo.id}}" class="btn btn-primary">수정</a>
+                                            <a href="#" th:onclick="'javascript:confirmDelete(' + ${todo.id} + ');'" class="btn btn-danger">삭제</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
