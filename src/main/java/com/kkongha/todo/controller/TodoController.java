@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.List;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/todos")
@@ -23,8 +28,37 @@ public class TodoController {
     private TodoService todoService;
 
     @GetMapping
-    public String getAllTodos(Model model) {
-        List<TodoEntity> todos = todoService.getAllTodos();
+    public String getAllTodos(@RequestParam(name = "dueDate", required = false) String dueDateString, Model model) {
+        List<TodoEntity> todos;
+        if (dueDateString != null) {
+            try {
+                Date dueDate = new SimpleDateFormat("yyyy-MM-dd").parse(dueDateString);
+                todos = todoService.getTodosByDueDate(dueDate);
+            } catch (ParseException e) {
+                todos = todoService.getAllTodos();
+            }
+        } else {
+            todos = todoService.getAllTodos();
+        }
+
+        model.addAttribute("todos", todos);
+        return "todo-list";
+    }
+
+    @GetMapping("/filter")
+    public String filterTodos(@RequestParam(name = "dueDate", required = false) String dueDateString, Model model) {
+        List<TodoEntity> todos;
+        if (dueDateString != null) {
+            try {
+                Date dueDate = new SimpleDateFormat("yyyy-MM-dd").parse(dueDateString);
+                todos = todoService.getTodosByDueDate(dueDate);
+            } catch (ParseException e) {
+                todos = todoService.getAllTodos();
+            }
+        } else {
+            todos = todoService.getAllTodos();
+        }
+
         model.addAttribute("todos", todos);
         return "todo-list";
     }

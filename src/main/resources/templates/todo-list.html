@@ -10,11 +10,14 @@
 
 <div class="container-fluid" style="text-align: center; max-width: 100%;padding: 40px 16px;">
     <h2>Todo List</h2>
-    <style>
-        div { text-align: center; }
-    </style>
+    <div class="col d-flex flex-wrap justify-content-center">
+        <form id="filterForm" action="/todos/filter" method="get">
+            <div class="mb-3" style="width: 45rem">
+                <input type="date" id="dueDate" name="dueDate" class="form-control" onchange="submitForm()">
+            </div>
+        </form>
+    </div>
     <button type="button" class="btn btn-warning" onclick="window.location.href='/todos/add'">+</button>
-
 
     <div class="col d-flex flex-wrap justify-content-center">
         <div class="col-md-0" style="float: none; margin: 0 auto;">
@@ -26,7 +29,6 @@
                                    th:onclick="'javascript:toggleCompletion(' + ${todo.id} + ');'" style="margin-left: 10px;">
                             <h5 class="card-title align-items-start" th:text="${todo.title}"></h5>
                             <div class="d-flex align-items-center">
-                                <strong style="margin-right: 10px;">기한: </strong><span th:text="${#dates.format(todo.dueDate, 'yyyy-MM-dd')}"></span>
                                 <strong style="margin-left: 10px; margin-right: 10px;">상세: </strong><span th:text="${todo.memo}"></span>
                                 <div class="d-flex" style="margin-left: 10px;">
                                     <div style="margin-right: 5px;">
@@ -45,12 +47,6 @@
         </div>
     </div>
 
-
-
-
-
-
-
     <!-- JavaScript function for toggling completion -->
     <script th:inline="javascript">
         function confirmDelete(id) {
@@ -61,5 +57,12 @@
         function toggleCompletion(id) {
             window.location.href = '/todos/toggle-completion/' + id;
         }
+
+        function submitForm() {
+            document.getElementById("filterForm").submit();
+        }
     </script>
 </div>
+
+</body>
+</html>

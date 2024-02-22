@@ -61,4 +61,9 @@ public class TodoServiceImpl implements TodoService {
 
         return todoRepository.findByDueDate(today);
     }
+
+    @Override
+    public List<TodoEntity> getTodosByDueDate(Date dueDate) {
+        return todoRepository.findByDueDate(dueDate);
+    }
 }

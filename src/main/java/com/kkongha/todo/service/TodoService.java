@@ -1,6 +1,7 @@
 package com.kkongha.todo.service;
 
 import com.kkongha.todo.model.TodoEntity;
+import java.util.Date;
 import java.util.List;
 
 public interface TodoService {
@@ -10,4 +11,6 @@ public interface TodoService {
     TodoEntity saveOrUpdateTodo(TodoEntity todo);
     void deleteTodoById(Long id);
     void toggleCompletion(Long id);
+
+    List<TodoEntity> getTodosByDueDate(Date dueDate);
 }
