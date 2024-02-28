@@ -13,7 +13,8 @@
     <div class="col d-flex flex-wrap justify-content-center">
         <form id="filterForm" action="/todos/filter" method="get">
             <div class="mb-3" style="width: 45rem">
-                <input type="date" id="dueDate" name="dueDate" class="form-control" onchange="submitForm()">
+                <input type="date" id="dueDate" name="dueDate" class="form-control" th:value="${currentDate}" onchange="updateSelectedDate()">
+                <!-- <input type="date" id="filteredDate" name="filterdDate" class="form-control" th:value="${filteredDate}" onchange="updateSelectedDate()"> -->
             </div>
         </form>
     </div>
@@ -47,8 +48,8 @@
         </div>
     </div>
 
-    <!-- JavaScript function for toggling completion -->
     <script th:inline="javascript">
+        var formattedCurrentDate = /*[[@{${formattedCurrentDate}}]]*/ '';
         function confirmDelete(id) {
             if (confirm('삭제하시겠습니까?')) {
                 window.location.href = '/todos/delete/' + id;
@@ -59,8 +60,27 @@
         }
 
         function submitForm() {
+            var selectedDate = document.getElementById("dueDate").value;
+            var filterForm = document.getElementById("filterForm");
+            var formData = new FormData(filterForm);
+
+            formData.set("dueDate", selectedDate);
+
+            fetch("/todos/filter", {
+                method: 'POST',
+                body: formData
+            });
+        }
+
+        function updateSelectedDate() {
+            var filteredDate = document.getElementById("dueDate").value;
+            var currentDate = new Date();
+
+            document.getElementById("dueDate").value = filteredDate;
+
             document.getElementById("filterForm").submit();
         }
+
     </script>
 </div>
 

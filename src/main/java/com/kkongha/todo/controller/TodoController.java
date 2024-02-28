@@ -34,11 +34,14 @@ public class TodoController {
             try {
                 Date dueDate = new SimpleDateFormat("yyyy-MM-dd").parse(dueDateString);
                 todos = todoService.getTodosByDueDate(dueDate);
+                model.addAttribute("currentDate", dueDateString);
             } catch (ParseException e) {
                 todos = todoService.getAllTodos();
             }
         } else {
-            todos = todoService.getAllTodos();
+            Date today = new Date();
+            todos = todoService.getTodosByDueDate(today);
+            model.addAttribute("currentDate", new SimpleDateFormat("yyyy-MM-dd").format(today));
         }
 
         model.addAttribute("todos", todos);
@@ -52,6 +55,7 @@ public class TodoController {
             try {
                 Date dueDate = new SimpleDateFormat("yyyy-MM-dd").parse(dueDateString);
                 todos = todoService.getTodosByDueDate(dueDate);
+                model.addAttribute("currentDate", dueDateString);
             } catch (ParseException e) {
                 todos = todoService.getAllTodos();
             }
