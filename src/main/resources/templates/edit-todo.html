@@ -13,7 +13,7 @@
     <div class="card-body text-end">
       <form th:action="@{'/todos/edit/' + ${todo.id}}" th:object="${todo}" method="post">
         <input class="form-control my-2" type="text" name="title"  th:field="*{title}" required placeholder="투두 제목을 작성해주세요.">
-        <input class="form-control my-2" type="date" name="title"  th:field="*{dueDateStr}" required>
+        <input class="form-control my-2" type="date" th:field="*{dueDateStr}" required>
         <textarea
                 id="content"
                 style="height: 80px; resize: none;"
@@ -26,11 +26,6 @@
       </form>
     </div>
   </div>
-
-
-  <script th:if="${param.success}">
-    window.location.href = '/todo-list.html';
-  </script>
 </div>
 </body>
 </html>

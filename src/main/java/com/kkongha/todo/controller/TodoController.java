@@ -103,6 +103,13 @@ public class TodoController {
             return "edit-todo";
         }
 
+        try {
+            Date dueDate = new SimpleDateFormat("yyyy-MM-dd").parse(updatedTodo.getDueDateStr());
+            updatedTodo.setDueDate(dueDate);
+        } catch (ParseException e) {
+            // 날짜 형식이 올바르지 않을 경우 처리
+            e.printStackTrace();
+        }
         updatedTodo.setId(id);
         todoService.saveOrUpdateTodo(updatedTodo);
         return "redirect:/todos";
