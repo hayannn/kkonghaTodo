@@ -39,9 +39,8 @@ public class TodoController {
                 todos = todoService.getAllTodos();
             }
         } else {
-            Date today = new Date();
-            todos = todoService.getTodosByDueDate(today);
-            model.addAttribute("currentDate", new SimpleDateFormat("yyyy-MM-dd").format(today));
+            todos = todoService.getAllTodos();  // 날짜를 선택하지 않은 경우 모든 할 일 목록을 불러오도록 수정
+            model.addAttribute("currentDate", "");  // 선택된 날짜가 없으므로 빈 문자열로 설정
         }
 
         model.addAttribute("todos", todos);

@@ -13,7 +13,7 @@
     <div class="col d-flex flex-wrap justify-content-center">
         <form id="filterForm" action="/todos/filter" method="get">
             <div class="mb-3" style="width: 45rem">
-                <input type="date" id="dueDate" name="dueDate" class="form-control" th:value="${currentDate}" onchange="updateSelectedDate()">
+                <input type="date" id="dueDate" name="dueDate" class="form-control" th:value="${currentDate}" onchange="submitForm()">
                 <!-- <input type="date" id="filteredDate" name="filterdDate" class="form-control" th:value="${filteredDate}" onchange="updateSelectedDate()"> -->
             </div>
         </form>
@@ -60,24 +60,9 @@
         }
 
         function submitForm() {
-            var selectedDate = document.getElementById("dueDate").value;
-            var filterForm = document.getElementById("filterForm");
-            var formData = new FormData(filterForm);
-
-            formData.set("dueDate", selectedDate);
-
-            fetch("/todos/filter", {
-                method: 'POST',
-                body: formData
-            });
-        }
-
-        function updateSelectedDate() {
             var filteredDate = document.getElementById("dueDate").value;
             var currentDate = new Date();
-
             document.getElementById("dueDate").value = filteredDate;
-
             document.getElementById("filterForm").submit();
         }
 
