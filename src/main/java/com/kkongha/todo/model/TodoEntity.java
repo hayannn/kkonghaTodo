@@ -36,20 +36,33 @@ public class TodoEntity {
     @Transient
     private double successRate;
 
-    @Column(name = "created_at")
-    private String createdAt;
+    @Column(name = "created_at", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
 
     @Column(name = "updated_at")
-    private String updatedAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
     @Column(name = "deleted_at")
     private String deletedAt;
+
 
     public String getDueDateStr() {
         return dueDateStr;
     }
     public void setDueDateStr(String dueDateStr) {
         this.dueDateStr = dueDateStr;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
     }
 
     public boolean isCompleted() {
