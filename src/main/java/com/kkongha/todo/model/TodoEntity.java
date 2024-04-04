@@ -32,6 +32,10 @@ public class TodoEntity {
     @Column(name = "memo")
     private String memo;
 
+    // 성공률 필드 추가
+    @Column(name ="successRate")
+    private double successRate;
+
     @Column(name = "created_at")
     private String createdAt;
 

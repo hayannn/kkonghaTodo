@@ -12,5 +12,8 @@ public interface TodoService {
     void deleteTodoById(Long id);
     void toggleCompletion(Long id);
 
+    //성공률 계산 추가
+    void calculateSuccessRate(List<TodoEntity> todos);
+
     List<TodoEntity> getTodosByDueDate(Date dueDate);
 }

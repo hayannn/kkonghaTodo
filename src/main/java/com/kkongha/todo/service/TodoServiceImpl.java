@@ -66,4 +66,16 @@ public class TodoServiceImpl implements TodoService {
     public List<TodoEntity> getTodosByDueDate(Date dueDate) {
         return todoRepository.findByDueDate(dueDate);
     }
+
+    //성공률 계산 추가
+    @Override
+    public void calculateSuccessRate(List<TodoEntity> todos) {
+        for (TodoEntity todo : todos) {
+            if (todo.isCompleted()) {
+                todo.setSuccessRate(100.0);
+            } else {
+                todo.setSuccessRate(0.0);
+            }
+        }
+    }
 }

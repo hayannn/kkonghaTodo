@@ -43,6 +43,9 @@ public class TodoController {
             model.addAttribute("currentDate", "");  // 선택된 날짜가 없으므로 빈 문자열로 설정
         }
 
+        // 각 투두 항목의 성공률 계산
+        todoService.calculateSuccessRate(todos);
+
         model.addAttribute("todos", todos);
         return "todo-list";
     }
