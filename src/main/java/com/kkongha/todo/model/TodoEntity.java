@@ -33,7 +33,7 @@ public class TodoEntity {
     private String memo;
 
     // 성공률 필드 추가
-    @Column(name ="successRate")
+    @Transient
     private double successRate;
 
     @Column(name = "created_at")
@@ -50,5 +50,13 @@ public class TodoEntity {
     }
     public void setDueDateStr(String dueDateStr) {
         this.dueDateStr = dueDateStr;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }
